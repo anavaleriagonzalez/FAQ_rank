@@ -35,7 +35,7 @@ test_labels = datamain[5]
 
 print(x_test[0])
 ####STL MODEL#######
-'''
+
 len(x_train[0])
 model = Sequential()
 model.add(Dense(150, input_dim=len(x_train[0]), activation='relu'))
@@ -64,7 +64,7 @@ history = model.fit(np.array(x_train), np.array(tr_labels), batch_size=batch_siz
                     validation_data=([np.array(x_dev)], [np.array(dev_labels)]),
                    callbacks = callbacks_list)
 
-'''
+
 
 print('using best model for predictions')
 best_model = load_model(filepath)
