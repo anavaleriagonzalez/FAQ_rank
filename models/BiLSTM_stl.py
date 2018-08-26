@@ -129,7 +129,7 @@ import pandas as pd
 
 
 print('building model...')
-'''
+
 sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences = embedding_layer(sequence_input)
 lstm1 = Bidirectional(LSTM(50, return_sequences=False))(embedded_sequences)
@@ -150,7 +150,7 @@ norm2 = Dropout(0.5)(lstm2)
 ##norm22 = Dropout(0.5)(lstm22)
 
 
-sim_input =  Input(shape=(20,), dtype='float32')
+sim_input =  Input(shape=(14,), dtype='float32')
 merge = concatenate([norm1, norm2, sim_input ])
 
 dense1 = Dense(64,  activation='relu')(merge)
@@ -185,7 +185,7 @@ history = model.fit([x_train, org_train, np.array(x_train_sim)], np.array(tr_lab
                     nb_epoch=nb_epoch,verbose=1,
                     validation_data=([x_val, org_val, np.array(x_dev_sim)], [np.array(dev_labels)]),
                    callbacks = callbacks_list)
-'''
+
 
 
 def predict_classes(probs):
