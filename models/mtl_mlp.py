@@ -47,7 +47,7 @@ test_labelsAUX = data_aux[5] #data_aux[5] +data_aux[5] + data_aux[5] + data_aux[
 
 print(len(test_labelsAUX))
 ####STL MODEL#######
-'''
+
 input1 = Input(shape=(len(x_train[0]),))
 input2 = Input(shape=(len(x_train[0]),))
 
@@ -101,7 +101,7 @@ history = model.fit([np.array(x_train), np.array(AUX_train)[0:len(x_train)]], [n
                     validation_data= ([np.array(x_dev), np.array(AUX_dev[0:len(x_dev)])], [np.array(dev_labels), np.array(dev_labelsAUX[0:len(x_dev)])]),
                     callbacks = callbacks_list)
 
-'''
+
 
 def predict_classes(probs):
     '''Generate class predictions for the input samples
@@ -139,7 +139,7 @@ prob_file = open('PREDS/probs-mtl-mlp-17-NLI', 'wb')
 pickle.dump(probs_list, prob_file)
 prob_file.close()
 
-print
+
 
 pred_file = open('PREDS/preds-mtl-mlp-17-NLI', 'wb')
 pickle.dump(preds_list, pred_file)
