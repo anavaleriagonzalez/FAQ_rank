@@ -217,7 +217,7 @@ import pandas as pd
 import numpy as np
 filepath="MAP FILES/MTL-BILSTM-QQQA-17.hdf5"
 
-'''
+
 #MAIN INPUT1
 sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences = embedding_layer(sequence_input)
@@ -244,11 +244,11 @@ norm4 = Dropout(0.5)(lstm4)
 
 
 #main similarity input
-sim_input1 =  Input(shape=(20,), dtype='float32')
+sim_input1 =  Input(shape=(14,), dtype='float32')
 merge1 = concatenate([norm1, norm2, sim_input1])
 
 #main similarity input
-sim_input2 =  Input(shape=(20,), dtype='float32')
+sim_input2 =  Input(shape=(14,), dtype='float32')
 merge2 = concatenate([norm3, norm4, sim_input2])
 
 #shared layer
@@ -293,7 +293,7 @@ nb_epoch = 1000
 model = Model(inputs=[sequence_input, sequence_input2, sim_input1 ,sequence_input3, sequence_input4, sim_input2],
               outputs=[out_main, out_aux])
 
-sgd = SGD(lr=0.00001, decay=1e-6, momentum=0.9, nesterov=True)
+sgd = SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(optimizer=sgd, loss=['binary_crossentropy','binary_crossentropy'],
               metrics=['accuracy'],
              loss_weights=[0.8, 0.05])
@@ -315,7 +315,7 @@ history = model.fit([np.array(x_train),np.array(org_train), np.array(x_train_sim
                      np.array(AUX_dev[0:len(x_val)])],
                         [np.array(dev_labels), np.array(dev_labelsAUX[0:len(x_val)])]),
                     callbacks = callbacks_list)
-'''
+
 best_model = load_model(filepath)
 score = best_model.evaluate([np.array(x_test),np.array(org_test), np.array(x_test_sim),
                      np.array(x_testAUX[0:len(x_test)]),np.array(org_testAUX[0:len(x_test)]),
