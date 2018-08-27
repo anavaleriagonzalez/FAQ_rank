@@ -222,13 +222,25 @@ filepath="MAP FILES/MTL-BILSTM-QQQA-17.hdf5"
 sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences = embedding_layer(sequence_input)
 lstm1 = Bidirectional(LSTM(50, return_sequences=False))(embedded_sequences)
-norm1 = Dropout(0.5)(lstm1)
+norm1 = Dropout(0.2)(lstm1)
+
+lstm11 = Bidirectional(LSTM(100, return_sequences=False))(norm1)
+norm11 = Dropout(0.2)(lstm11)
+lstm111 = Bidirectional(LSTM(200, return_sequences=False))(norm11)
+norm111 = Dropout(0.2)(lstm111)
+
+
 
 #MAIN INPUT2
 sequence_input2 = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences2 = embedding_layer(sequence_input2)
 lstm2 = Bidirectional(LSTM(50, return_sequences=False))(embedded_sequences2)
-norm2 = Dropout(0.5)(lstm2)
+norm2 = Dropout(0.2)(lstm2)
+
+lstm22 = Bidirectional(LSTM(100, return_sequences=False))(norm2)
+norm22 = Dropout(0.2)(lstm22)
+lstm222 = Bidirectional(LSTM(200, return_sequences=False))(norm22)
+norm222 = Dropout(0.2)(lstm222)
 
 #AUX INPUT1
 sequence_input3 = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
@@ -236,50 +248,59 @@ embedded_sequences3 = embedding_layer2(sequence_input3)
 lstm3 = Bidirectional(LSTM(50, return_sequences=False))(embedded_sequences3)
 norm3 = Dropout(0.5)(lstm3)
 
+lstm33 = Bidirectional(LSTM(100, return_sequences=False))(norm3)
+norm33 = Dropout(0.2)(lstm33)
+lstm333 = Bidirectional(LSTM(200, return_sequences=False))(norm33)
+norm333 = Dropout(0.2)(lstm333)
+
 #AUX INPUT2
 sequence_input4 = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences4 = embedding_layer2(sequence_input4)
 lstm4 = Bidirectional(LSTM(50, return_sequences=False))(embedded_sequences4)
-norm4 = Dropout(0.5)(lstm4)
+norm4 = Dropout(0.2)(lstm4)
 
+lstm44 = Bidirectional(LSTM(100, return_sequences=False))(norm4)
+norm44 = Dropout(0.2)(lstm44)
+lstm444 = Bidirectional(LSTM(200, return_sequences=False))(norm44)
+norm444 = Dropout(0.2)(lstm444)
 
 #main similarity input
 sim_input1 =  Input(shape=(14,), dtype='float32')
-merge1 = concatenate([norm1, norm2, sim_input1])
+merge1 = concatenate([norm111, norm222, sim_input1])
 
 #main similarity input
 sim_input2 =  Input(shape=(14,), dtype='float32')
-merge2 = concatenate([norm3, norm4, sim_input2])
+merge2 = concatenate([norm333, norm444, sim_input2])
 
 #shared layer
 shared_layer  = Dense(64,  activation='relu')
 shared_out1 = shared_layer(merge1)
-drop1 = Dropout(0.5)(shared_out1)
+drop1 = Dropout(0.2)(shared_out1)
 
 shared_out2 = shared_layer(merge2)
-drop2 = Dropout(0.5)(shared_out2)
+drop2 = Dropout(0.2)(shared_out2)
 
 #TASK SPECIFIC LAYERS
 
 #main
 main2 = Dense(64, activation='relu')(drop1)
-drop3 = Dropout(0.5)(main2)
+drop3 = Dropout(0.2)(main2)
 
 
 #aux
 aux2 = Dense(64, activation='relu')(drop2)
-drop4 = Dropout(0.5)(aux2)
+drop4 = Dropout(0.2)(aux2)
 
 
 
 #main
 main3 = Dense(64, activation='relu')(drop3)
-drop5 = Dropout(0.5)(main3)
+drop5 = Dropout(0.2)(main3)
 
 
 #aux
 aux3 = Dense(64, activation='relu')(drop4)
-drop6 = Dropout(0.5)(aux3)
+drop6 = Dropout(0.2)(aux3)
 
 out_main = Dense(1, activation='sigmoid', name='main')(drop5)
 
