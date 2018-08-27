@@ -136,9 +136,11 @@ lstm1 = Bidirectional(LSTM(50, return_sequences=False))(embedded_sequences)
 norm1 = Dropout(0.5)(lstm1)
 
 
-#lstm11 = Bidirectional(LSTM(100, return_sequences=False))(norm1)
-##norm11 = Dropout(0.5)(lstm11)
+lstm11 = Bidirectional(LSTM(100, return_sequences=False))(norm1)
+norm11 = Dropout(0.5)(lstm11)
 
+lstm111 = Bidirectional(LSTM(200, return_sequences=False))(norm11)
+norm111 = Dropout(0.5)(lstm11)
 
 sequence_input2 = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences2 = embedding_layer2(sequence_input2)
@@ -146,21 +148,23 @@ lstm2 = Bidirectional(LSTM(50, return_sequences=False))(embedded_sequences2)
 norm2 = Dropout(0.5)(lstm2)
 
 
-##lstm22 = Bidirectional(LSTM(100, return_sequences=False))(norm2)
-##norm22 = Dropout(0.5)(lstm22)
+lstm22 = Bidirectional(LSTM(100, return_sequences=False))(norm2)
+norm22 = Dropout(0.5)(lstm22)
 
+lstm222 = Bidirectional(LSTM(200, return_sequences=False))(norm22)
+norm222 = Dropout(0.5)(lstm222)
 
 sim_input =  Input(shape=(14,), dtype='float32')
-merge = concatenate([norm1, norm2, sim_input ])
+merge = concatenate([norm111, norm222, sim_input ])
 
 dense1 = Dense(64,  activation='relu')(merge)
-drop1 = Dropout(0.5)(dense1)
+drop1 = Dropout(0.2)(dense1)
 
 dense2 = Dense(64, activation='relu')(drop1)
-drop2 = Dropout(0.5)(dense2)
+drop2 = Dropout(0.2)(dense2)
 
 dense3 = Dense(64,  activation='relu')(drop2)
-drop3 = Dropout(0.5)(dense3)
+drop3 = Dropout(0.2)(dense3)
 
 out = Dense(1, activation='sigmoid')(drop3)
 
