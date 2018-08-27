@@ -9,7 +9,8 @@ import numpy as np
 import math
 
 
-
+def words_to_ngrams(words, n, sep=" "):
+    return [sep.join(words[i:i+n]) for i in range(len(words)-n+1)]
 
 def clean_str(string):
     """
@@ -63,6 +64,23 @@ def lexical_overlap(rel_q, org_q):
         overlap.append(inter/min_len)
     return overlap
 
+def lexical_overlap_ngram(rel_q, org_q):
+    from nltk.tokenize import word_tokenize
+    from nltk.stem import WordNetLemmatizer
+    lemmatizer = WordNetLemmatizer()
+    print('calculating lexical overlap....')
+
+    overlap = []
+    for i in range(len(rel_q)):
+        rel_tokens = words_to_ngrams(word_tokenize(rel_q[i]), 3, sep=" ")
+        org_tokens =  words_to_ngrams(word_tokenize(org_q[i]), 3, sep=" ")
+
+        min_len = min([len(set(rel_tokens)), len(set(org_tokens))])
+
+        inter = len(intersection(rel_tokens, org_tokens))
+
+        overlap.append(inter/min_len)
+    return overlap
 
 
 
@@ -196,9 +214,12 @@ def extract_all(rel_q, org_q, sub_relq, sub_orgq):
     #cos_s_n3, euc_s_n3 , man_s3, bhatt_s3= boNgrams_distance(sub_relq, sub_orgq)
 
     lex_1 = lexical_overlap(rel_q, org_q)
-    lex_2 = lexical_overlap(sub_relq, sub_orgq)
+    lex_2 = lexical_overlap_ngram(rel_q, org_q)
+    
+   
+     
 
-    dataset = pd.DataFrame(data = [cos_t, euc_t , man_t, bhatt_t,  cos_t_n3, euc_t_n3, man_t3, bhatt_t3, lex_1, lex_2])
+    dataset = pd.DataFrame(data = [cos_t, euc_t , man_t, bhatt_t,  cos_t_n3, euc_t_n3, man_t3, bhatt_t3, lex_1, lex_2)
 
     return np.array(dataset.transpose())
 
