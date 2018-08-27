@@ -1,10 +1,13 @@
 import pandas as pd
 import nltk
+import keras
 import numpy as np
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import WordNetLemmatizer
 from keras.preprocessing.sequence import pad_sequences
 import numpy as np
+import math
+
 
 
 
@@ -60,7 +63,7 @@ def lexical_overlap(rel_q, org_q):
         overlap.append(inter/min_len)
     return overlap
 
-import math
+
 
 
 def bhattacharyya(a, b):
@@ -137,7 +140,7 @@ def boNgrams_distance(rel_q, org_q):
 
 def get_labels(set_):
 
-    import keras
+   
     bins = []
     for item in set_.RELQ_RELEVANCE2ORGQ.tolist() :
         if item == 'Irrelevant':
@@ -149,7 +152,7 @@ def get_labels(set_):
 
 def get_labelsQA(set_):
 
-    import keras
+
     bins = []
     for item in set_.RELC_RELEVANCE2RELQ.tolist() :
         if item == 'Good':
