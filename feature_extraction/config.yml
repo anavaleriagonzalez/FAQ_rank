@@ -1,0 +1,6 @@
+test: "/home/ana/Desktop/Current_projects/QA_data/data/TEST_INPUT/SemEval2016_task3_test_input/English/2017"
+dev: "/home/ana/Desktop/Current_projects/QA_data/data/semeval2016-task3-cqa-ql-traindev-v3.2 ENG/v3.2/dev"
+train: "/home/ana/Desktop/Current_projects/QA_data/data/semeval2016-task3-cqa-ql-traindev-v3.2 ENG/v3.2/train"
+
+
+
