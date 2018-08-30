@@ -30,13 +30,13 @@ Once the queries have been extracted from the XML files run the following script
           
     i.e.  >> python extract_features.py glove.6B.50d.txt /Users/username/FAQ_rank/QA_data/data_dumps
 
-    This will create a list of vectors and labels in the following format:
+This will create a list of vectors and labels in the following format:
 
-    [vectors_train
-    vectors_dev
-    vectors_test
-    labels_train
-    labels_dev
-    labels_test]
+[vectors_train
+vectors_dev
+vectors_test
+labels_train
+labels_dev
+labels_test]
 
-    This will be dumped in the data_dumps folder.
+This will be dumped in the data_dumps folder.
