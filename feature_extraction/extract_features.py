@@ -4,11 +4,6 @@ import pandas as pd
 import numpy as np
 
 
-#############
-#STARTING HERE
-## QUERY TO QUERY DATA
-#list for vectorizers
-#TRAIN
 
 parser = argparse.ArgumentParser(description='Specify paths')
 parser.add_argument('glove_path',  type=str,

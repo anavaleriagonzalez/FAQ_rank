@@ -23,5 +23,12 @@ The files used to extract the train, dev and test sets are under <b><i> QA_data/
           
 the extracted queries and other data will be dumped in <b><i>QA_data/data_dumps/</i></b>
 
+### Extracting feature vectors
+Once the queries have been extracted from the XML files run the following script:
+
+          >> python extract_features.py [path_to_glove_embeddings][path_to_data_dumps]
+          
+    i.e.  >> python extract_features.py glove.6B.50d.txt /Users/fcm220/Desktop/FAQ_rank/QA_data/data_dumps
+
 
 

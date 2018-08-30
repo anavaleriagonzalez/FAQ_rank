@@ -21,10 +21,3 @@ p = os.path.abspath('..')
 train_df.to_csv(p+"/QA_data/data_dumps/QQ_train.csv")
 test_df.to_csv(p+"/QA_data/data_dumps/QQ_test-17.csv")
 dev_df.to_csv(p+"/QA_data/data_dumps/QQ_dev.csv")
-
-'''
-#NOT CURRENTLY USED
-pd_to_text.return_text(train_df, "train")
-pd_to_text.return_text(test_df, "test")
-pd_to_text.return_text(dev_df, "dev")
-'''
