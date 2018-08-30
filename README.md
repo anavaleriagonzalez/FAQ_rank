@@ -39,3 +39,4 @@ Once the queries have been extracted from the XML files run the following script
     labels_dev
     labels_test]
 
+    This will be dumped in the data_dumps folder.
