@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import random
 import argparse
-random.seed(10)
+random.seed(7)
 
 
 parser = argparse.ArgumentParser(description='Arguments for mlp model')
@@ -44,21 +44,26 @@ test_labels = datamain[5]
 
 print(x_test[0])
 ####Building STL MODEL#######
+from sklearn import preprocessing
+
+x_train = preprocessing.normalize(x_train)
+x_dev = preprocessing.normalize(x_dev)
+x_test = preprocessing.normalize(x_test)
 
 print(len(x_test[0]))
 model = Sequential()
 model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
-model.add(Dropout(0.1))
+model.add(Dropout(0.0))
 
 model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
-model.add(Dropout(0.1))
+model.add(Dropout(0.0))
 
 model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
-model.add(Dropout(0.1))
+model.add(Dropout(0.0))
 
 model.add(Dense(1, activation='sigmoid'))
-batch_size = 100
-nb_epoch =100
+batch_size = 500
+nb_epoch =500
 
 
 sgd = SGD(lr=0.01, decay=1e-8, momentum=0.9, nesterov=True)
@@ -87,14 +92,14 @@ preds_list = [i[0] for i in predictions]
 probs = best_model.predict(x_test)
 probs_list = [i[0] for i in probs]
 
-prob_file = open('../outputs/probs'+args.model_name, 'wb')
+prob_file = open('../outputs/probs_'+args.model_name+'.p','wb')
 pickle.dump(probs_list, prob_file)
 prob_file.close()
 
 predictions = best_model.predict_classes(x_test)
 preds_list = [i[0] for i in predictions]
 
-pred_file = open('../outputs/preds'+args.model_name, 'wb')
+pred_file = open('../outputs/preds_'+args.model_name+'.p', 'wb')
 pickle.dump(preds_list, pred_file)
 pred_file.close()
 
@@ -110,11 +115,11 @@ print(correct / len(predictions))
 
 
 
-#test = pd.read_csv('QA_test-2.csv', sep = ',')
+test = pd.read_csv('../QA_data/data_dumps/QQ_test-17.csv', sep = ',')
 
-'''
+
 #GENERATE FILE FOR MAP EVALUATION SCRIPT
-with open('ablation/QA-MAIN/STL.preds', 'w') as f:
+with open('../MAP/Predicted/MTL-STL-17.preds', 'w') as f:
     for i in range(len(probs_list)):
 
         if preds_list[i] == 1:
@@ -123,5 +128,5 @@ with open('ablation/QA-MAIN/STL.preds', 'w') as f:
             label = 'false'
         #'\t'+str(entry['probs'].tolist()[0])
 
-        f.write(test.RELQ_ID.tolist()[i]+ '\t'+test['RELC_ID'].tolist()[i]+'\t'+ str(i)+ '\t'+str(probs_list[i])+'\t'+  label +'\n')
-'''
+        f.write(test.ORGQ_ID.tolist()[i]+ '\t'+test['RELQ_ID'].tolist()[i]+'\t'+ str(i)+ '\t'+str(probs_list[i])+'\t'+  label +'\n')
+
