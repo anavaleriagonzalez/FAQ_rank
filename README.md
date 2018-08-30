@@ -7,11 +7,11 @@ Gonzalez-Garduno, Ana Valeria; Augenstein, Isabelle; Søgaard, Anders. 2018. A s
 the code is being updated...
 
 ### Extracting queries from XML files
-The files used to extract the train, dev and test sets are under <i> QA_data/semEval_data/ </i>...  to extract the queries and relevant information for preprocessing simply go into the directory feature_extraction/ and run :
+The files used to extract the train, dev and test sets are under <b><i> QA_data/semEval_data/ </i></b>...  to extract the queries and relevant information for preprocessing simply go into the directory feature_extraction/ and run :
 
           >> python run.py
           
-the extracted queries and other data will be dumped in <i>QA_data/data_dumps/</i>
+the extracted queries and other data will be dumped in <b><i>QA_data/data_dumps/</i></b>
 
 
 
