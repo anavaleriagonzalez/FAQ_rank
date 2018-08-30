@@ -44,9 +44,10 @@ This will be dumped in the data_dumps folder.
 ### Training a STL model
 
 Once the vector files are created, one can easily train and test a single task model. Go into the <b><i>models</b></i> folder and run:
+    
         >> python stl_mlp.py  [model_name] [path_to_vectors]
     
-    i.e. >> >> python stl_mlp.py  test_model /Users/username/FAQ_rank/QA_data/data_dumps/qq_data.p
+        i.e. >> python stl_mlp.py  test_model /Users/username/FAQ_rank/QA_data/data_dumps/qq_data.p
 
 
 
