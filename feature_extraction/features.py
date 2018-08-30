@@ -10,7 +10,9 @@ import math
 
 
 def words_to_ngrams(words, n, sep=" "):
-    return [sep.join(words[i:i+n]) for i in range(len(words)-n+1)]
+
+    string = " ".join(words)
+    return [string[i:i+n] for i in range(len(string)-n+1)]
 
 def clean_str(string):
     """
@@ -69,17 +71,23 @@ def lexical_overlap_ngram(rel_q, org_q):
     from nltk.stem import WordNetLemmatizer
     lemmatizer = WordNetLemmatizer()
     print('calculating lexical overlap....')
-
+    
     overlap = []
     for i in range(len(rel_q)):
         rel_tokens = words_to_ngrams(word_tokenize(rel_q[i]), 3, sep=" ")
         org_tokens =  words_to_ngrams(word_tokenize(org_q[i]), 3, sep=" ")
+        #print(rel_q[i])
 
         min_len = min([len(set(rel_tokens)), len(set(org_tokens))])
 
         inter = len(intersection(rel_tokens, org_tokens))
+            
 
-        overlap.append(inter/min_len)
+        try:
+            over = inter/min_len
+        except Exception:
+            over = 0
+        overlap.append(over)
     return overlap
 
 
@@ -88,7 +96,12 @@ def bhattacharyya(a, b):
     
     if not len(a) == len(b):
         raise ValueError("a and b must be of the same size")
-    return -math.log(sum((math.sqrt(u * w) for u, w in zip(a, b))))
+
+    try:
+        ba = -math.log(sum((math.sqrt(u * w) for u, w in zip(a, b))))
+    except Exception :
+        ba = 0
+    return ba
 
 # BAG OF WORDS SIMILARITY
 
@@ -204,7 +217,7 @@ def emb_distance(rel_q_vecs, org_q_vecs):
 
     return cos, euc, man, bhatt
 
-def extract_all(rel_q, org_q, sub_relq, sub_orgq):
+def extract_all(rel_q, org_q):
 
     print('extracting all data...')
     cos_t, euc_t , man_t, bhatt_t= bow_distance(rel_q, org_q)
@@ -219,11 +232,11 @@ def extract_all(rel_q, org_q, sub_relq, sub_orgq):
    
      
 
-    dataset = pd.DataFrame(data = [cos_t, euc_t , man_t, bhatt_t,  cos_t_n3, euc_t_n3, man_t3, bhatt_t3, lex_1, lex_2)
+    dataset = pd.DataFrame(data = [cos_t, euc_t , man_t, bhatt_t,  cos_t_n3, euc_t_n3, man_t3, bhatt_t3, lex_1, lex_2])
 
     return np.array(dataset.transpose())
 
-def extract_emb(rel_q, org_q, sub_relq, sub_orgq):
+def extract_emb(rel_q, org_q):
     cos_t, euc_t , man_t, bhatt_t= emb_distance(rel_q, org_q)
     #cos_s, euc_s , man_s, bhatt_s= emb_distance(sub_relq, sub_orgq)
 
