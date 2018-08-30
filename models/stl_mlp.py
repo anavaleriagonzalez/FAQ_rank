@@ -6,53 +6,62 @@ import pickle
 import pandas as pd
 import numpy as np
 import random
-filepath="models/best2_stl_mlp.hdf5"
+import argparse
+random.seed(10)
 
-rands = [i for i in range(26000)]
-random.shuffle(rands)
-print(rands)
-f = open('qq_data-17.p', 'rb')
+
+parser = argparse.ArgumentParser(description='Arguments for mlp model')
+parser.add_argument('model_name',  type=str,
+                     help='Provide the name of the model to be saved')
+parser.add_argument('query_path',  type=str,
+                     help='Provide the full path to the QQ dataframes')  
+
+args = parser.parse_args()  
+
+filepath="../trained_models/"+args.model_name+'.hdf5'
+
+
+f = open(args.query_path, 'rb')
 datamain = pickle.load(f)
 f.close()
 
-rands2 = [i for i in range(6300)]
-random.shuffle(rands2)
+x_train = datamain[0]
+print(x_train[0])
 
-x_train = datamain[0]#np.concatenate((datamain[1], datamain[1]), axis = 0)# np.array([datamain[0][i] for i in rands])
-# np.concatenate((i[0:6], i[-6::]),axis = 0) for bow+emb
-#x_train = np.array([np.concatenate((i[0:12], i[13::]),axis = 0) for i in x_train])
-x_dev= datamain[1] #np.array([datamain[1][i] for i in rands2])
-#print(x_train[0].shape)
-#x_dev = np.array([np.concatenate((i[0:12], i[13::]),axis = 0) for i in x_dev])
+x_train[np.argwhere(np.isnan(x_train))] = 0
+print(x_train[0].shape)
+
+x_dev= datamain[1] 
+print(np.argwhere(np.isnan(x_dev)))
 
 x_test =datamain[2]
 print(x_test.shape)
+print(np.argwhere(np.isnan(x_test)))
 
-#x_test = np.array([np.concatenate((i[0:12], i[13::]),axis = 0)  for i in x_test])
-tr_labels = datamain[3]#np.concatenate((datamain[4] , datamain[4]) , axis = 0) #np.array([datamain[3][i] for i in rands])
-dev_labels = datamain[4] #np.array([datamain[4][i] for i in rands2])
+tr_labels = datamain[3]
+dev_labels = datamain[4] 
 test_labels = datamain[5]
 
 print(x_test[0])
-####STL MODEL#######
+####Building STL MODEL#######
 
-len(x_train[0])
+print(len(x_test[0]))
 model = Sequential()
-model.add(Dense(150, input_dim=len(x_train[0]), activation='relu'))
-model.add(Dropout(0.5))
+model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
+model.add(Dropout(0.1))
 
-model.add(Dense(150, input_dim=len(x_train[0]), activation='relu'))
-model.add(Dropout(0.5))
+model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
+model.add(Dropout(0.1))
 
-model.add(Dense(150, input_dim=len(x_train[0]), activation='relu'))
-model.add(Dropout(0.5))
+model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
+model.add(Dropout(0.1))
 
 model.add(Dense(1, activation='sigmoid'))
-batch_size = 500
-nb_epoch =500
+batch_size = 100
+nb_epoch =100
 
 
-sgd = SGD(lr=0.05, decay=1e-8, momentum=0.9, nesterov=True)
+sgd = SGD(lr=0.01, decay=1e-8, momentum=0.9, nesterov=True)
 model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
 
 
@@ -78,14 +87,14 @@ preds_list = [i[0] for i in predictions]
 probs = best_model.predict(x_test)
 probs_list = [i[0] for i in probs]
 
-prob_file = open('PREDS/probs-stl-mlp-17', 'wb')
+prob_file = open('../outputs/probs'+args.model_name, 'wb')
 pickle.dump(probs_list, prob_file)
 prob_file.close()
 
 predictions = best_model.predict_classes(x_test)
 preds_list = [i[0] for i in predictions]
 
-pred_file = open('PREDS/preds-stl-mlp-17', 'wb')
+pred_file = open('../outputs/preds'+args.model_name, 'wb')
 pickle.dump(preds_list, pred_file)
 pred_file.close()
 
