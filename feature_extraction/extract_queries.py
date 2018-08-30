@@ -76,12 +76,16 @@ def get_all(filepath_dict):
     return all_
 
 def extract_relqdicts(relq):
-    only_dicts = {}
+    only_dicts = []
+
+    #print(relq)
     for q in relq:
         q[0]["ORGQ_ID"] = q[0]['RELQ_ID'].split("_")[0]
         q[0]['RELQ_text'] = q[2] + ' ' + q[1]
         q[0]['RelQSubject'] = q[2]
-        only_dicts[q[0]["RELQ_ID"]]= q[0]
+        only_dicts.append(q[0])
+
+       
     #  only_dicts.append(q[0])
 
     return only_dicts
@@ -109,10 +113,17 @@ def extract_orgqdictds(orgq):
 def org_rel_df(set_rel, set_org):
 
     only_dicts = extract_relqdicts(set_rel)
-    org_rel_df = pd.DataFrame(only_dicts)
+    print(only_dicts[0:10])
 
+
+   #org_rel_df = pd.concat([pd.DataFrame([item]) for item in only_dicts])
+    org_rel_df = pd.DataFrame(only_dicts)
+    print(org_rel_df.head())
     orgs = org_rel_df.ORGQ_ID.tolist()
+    
+    
     only_org_dicts = extract_orgqdictds(set_org)
+    
 
     new_df = []
     for org in orgs:

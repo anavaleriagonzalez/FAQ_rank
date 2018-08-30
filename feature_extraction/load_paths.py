@@ -5,7 +5,11 @@ import xml.etree.ElementTree as ET
 
 def get_filepath(datafolder):
     """ save the xml files except for the multiline files"""
-    return [os.path.join(datafolder, f) for f in os.listdir(datafolder) if "xml" in f and "multiline" not in f]
+    p = os.path.abspath('..')
+    datafolder2 = p + datafolder
+    print(datafolder2)
+
+    return [os.path.join(datafolder2, f) for f in os.listdir(datafolder2) if "xml" in f and "multiline" not in f]
 
 def filepaths_fromdict(datafolders):
     """takes in the datafolders dictionary from the config file and outputs a dictionary of format:
