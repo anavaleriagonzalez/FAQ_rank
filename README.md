@@ -14,7 +14,7 @@ The code was written in python 3.5 and requires keras (with tensorflow backend).
           >> python -c "import nltk; nltk.Download()"
 
 
-The model uses the pretrained GloVe embeddings found here: https://nlp.stanford.edu/projects/glove/ .Specifically we use the vectors trained on Wikipedia (<i>glove.6B.50d.txt</i>). We place the embeddings in the folder b><i>feature_extraction/</b></i>, however you can place them wherever and specify their location in the script extract_features.py
+The model uses the pretrained GloVe embeddings found here: https://nlp.stanford.edu/projects/glove/ .Specifically we use the vectors trained on Wikipedia (<i>glove.6B.50d.txt</i>). We place the embeddings in the folder <b><i>feature_extraction/</b></i>, however you can place them wherever and specify their location in the script extract_features.py
           
 ### Extracting queries from XML files
 The files used to extract the train, dev and test sets are under <b><i> QA_data/semEval_data/ </i></b>...  to extract the queries and relevant information for preprocessing simply go into the directory <b><i>feature_extraction/</b></i> and run :
