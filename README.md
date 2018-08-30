@@ -12,7 +12,7 @@ The code was written in python 3.5 and requires keras (with tensorflow backend).
           >> python -c "import nltk; nltk.Download()"
           
 ### Extracting queries from XML files
-The files used to extract the train, dev and test sets are under <b><i> QA_data/semEval_data/ </i></b>...  to extract the queries and relevant information for preprocessing simply go into the directory feature_extraction/ and run :
+The files used to extract the train, dev and test sets are under <b><i> QA_data/semEval_data/ </i></b>...  to extract the queries and relevant information for preprocessing simply go into the directory <b><i>feature_extraction/</b></i> and run :
 
           >> python run.py
           
