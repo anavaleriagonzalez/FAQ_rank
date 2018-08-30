@@ -32,11 +32,11 @@ Once the queries have been extracted from the XML files run the following script
 
 This will create a list of vectors and labels in the following format:
 
-[vectors_train
-vectors_dev
-vectors_test
-labels_train
-labels_dev
+[vectors_train,
+vectors_dev,
+vectors_test,
+labels_train,
+labels_dev,
 labels_test]
 
 This will be dumped in the data_dumps folder.
