@@ -92,16 +92,20 @@ def lexical_overlap_ngram(rel_q, org_q):
 
 
 
+ 
 def bhattacharyya(a, b):
-    
+
+    print(a, b)
+    """ Bhattacharyya distance between distributions (lists of floats). """
     if not len(a) == len(b):
         raise ValueError("a and b must be of the same size")
 
-    try:
-        ba = -math.log(sum((math.sqrt(u * w) for u, w in zip(a, b))))
-    except Exception :
-        ba = 0
-    return ba
+    score = sum((math.sqrt(abs(u * w)) for u, w in zip(a, b)))
+    print(score)
+    return score
+  
+   
+    
 
 # BAG OF WORDS SIMILARITY
 
@@ -207,12 +211,12 @@ def emb_distance(rel_q_vecs, org_q_vecs):
     euc = []
     man = []
     bhatt = []
-
+    #print(rel_q_vecs, org_q_vecs)
     for i in range(len(rel_q_vecs)):
         cos.append(1- cosine(rel_q_vecs[i], org_q_vecs[i]))
         euc.append(euclidean(rel_q_vecs[i], org_q_vecs[i]))
         man.append(cityblock(rel_q_vecs[i], org_q_vecs[i]))
-        bhatt.append(bhattacharyya(rel_q_vecs[i], org_q_vecs[i]))
+        bhatt.append(bhattacharyya(list(rel_q_vecs[i]), list(org_q_vecs[i])))
 
 
     return cos, euc, man, bhatt

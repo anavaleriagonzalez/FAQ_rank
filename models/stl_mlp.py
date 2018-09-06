@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import random
 import argparse
-random.seed(7)
+random.seed(10)
 
 
 parser = argparse.ArgumentParser(description='Arguments for mlp model')
@@ -53,17 +53,17 @@ x_test = preprocessing.normalize(x_test)
 print(len(x_test[0]))
 model = Sequential()
 model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
-model.add(Dropout(0.0))
+model.add(Dropout(0.1))
 
 model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
-model.add(Dropout(0.0))
+model.add(Dropout(0.1))
 
 model.add(Dense(150, input_dim=len(x_test[0]), activation='relu'))
-model.add(Dropout(0.0))
+model.add(Dropout(0.1))
 
 model.add(Dense(1, activation='sigmoid'))
-batch_size = 500
-nb_epoch =500
+batch_size = 100
+nb_epoch =100
 
 
 sgd = SGD(lr=0.01, decay=1e-8, momentum=0.9, nesterov=True)
@@ -115,11 +115,11 @@ print(correct / len(predictions))
 
 
 
-test = pd.read_csv('../QA_data/data_dumps/QQ_test-17.csv', sep = ',')
+test = pd.read_csv('../QA_data/data_dumps/QQ_test.csv', sep = ',')
 
 
 #GENERATE FILE FOR MAP EVALUATION SCRIPT
-with open('../MAP/Predicted/MTL-STL-17.preds', 'w') as f:
+with open('../MAP/Predicted/MTL-STL-16.preds', 'w') as f:
     for i in range(len(probs_list)):
 
         if preds_list[i] == 1:
