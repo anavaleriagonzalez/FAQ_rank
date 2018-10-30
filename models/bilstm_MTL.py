@@ -355,13 +355,3 @@ probs = best_model.predict([np.array(x_test),np.array(org_test), np.array(x_test
 probs_list = [i[0] for i in probs[0]]
 
 
-
-test = pd.read_csv('QQ_test-17.csv', sep = ',')
-#GENERATE FILE FOR MAP EVALUATION SCRIPT
-with open('MTL-BILSTM-QQQA-17.preds', 'w') as f:
-    for i in range(len(probs_list)):
-
-        label = 'false'
-        #'\t'+str(entry['probs'].tolist()[0])
-
-        f.write(test.RELQ_ID.tolist()[i]+ '\t'+test['RELC_ID'].tolist()[i]+'\t'+ str(i)+ '\t'+str(probs_list[i])+'\t'+  label +'\n')
