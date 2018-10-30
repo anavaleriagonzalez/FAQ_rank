@@ -149,14 +149,3 @@ pred_file.close()
 trues = open('PREDS/true-values', 'wb')
 pickle.dump(test_labels, trues)
 pred_file.close()
-'''
-test = pd.read_csv('QA_test-2.csv', sep = ',')
-#GENERATE FILE FOR MAP EVALUATION SCRIPT
-with open('ablation/QA-MAIN/STL.preds', 'w') as f:
-    for i in range(len(probs_list)):
-
-        label = 'false'
-        #'\t'+str(entry['probs'].tolist()[0])
-
-        f.write(test.RELQ_ID.tolist()[i]+ '\t'+test['RELC_ID'].tolist()[i]+'\t'+ str(i)+ '\t'+str(1-probs_list[i])+'\t'+  label +'\n')
-'''
