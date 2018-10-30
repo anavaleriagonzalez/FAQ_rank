@@ -182,14 +182,3 @@ pickle.dump(preds_list, pred_file)
 pred_file.close()
 
 
-'''
-test = pd.read_csv('QQ_test.csv', sep = ',')
-#GENERATE FILE FOR MAP EVALUATION SCRIPT
-with open('test_MTL_MLP-17-ALL.preds', 'w') as f:
-    for i in range(len(probs_list)):
-
-        label = 'false'
-        #'\t'+str(entry['probs'].tolist()[0])
-
-        f.write(test.ORGQ_ID.tolist()[i]+ '\t'+test['RELQ_ID'].tolist()[i]+'\t'+ str(i)+ '\t'+str(probs_list[i])+'\t'+  label +'\n')
-'''
