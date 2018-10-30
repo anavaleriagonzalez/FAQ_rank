@@ -7,6 +7,7 @@ The code belonging to :
 
 Gonzalez-Garduno, Ana Valeria; Augenstein, Isabelle; Søgaard, Anders. 2018. A strong baseline for question relevancy ranking. Conference on Empirical Methods in Natural Language Processing (EMNLP) 2018. Brussels, Belgium.
 
+note: extra data preprocessing has been added to improve accuracies from what has been reported
 ### Before Running
 
 The code was written in python 3.5 and requires keras (with tensorflow backend). Gensim needs to be installed as well as nltk. The code requires nltk data to be downloaded. If not downloaded already, type the following in the command terminal:
