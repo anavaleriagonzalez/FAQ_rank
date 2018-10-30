@@ -33,40 +33,46 @@ train = pd.read_csv(arguments.query_path+'/'+'QQ_train.csv', sep = ',') #.dropna
 dev = pd.read_csv(arguments.query_path+'/'+'QQ_dev.csv', sep = ',') #.dropna(axis=0)
 test = pd.read_csv(arguments.query_path+'/'+'QQ_test.csv', sep = ',') #.dropna(axis=0)
 
+def merge(list1, list2):
+    new = []
+    for i in range(len(list1)):
+        new.append(list1[i]+ " " +list2[i])
+    return new
 
-rel_q = train.RELQ_text.tolist()
-org_q = train.ORGQ_TEXT.tolist()
+
+rel_q = merge(train.RELQ_CATEGORY.tolist(),train.RELQ_text.tolist())
+org_q = merge(train.ORGQ_SUBJECT.tolist(), train.ORGQ_TEXT.tolist())
 
 #dev
 
-rel_qd = dev.RELQ_text.tolist()
-org_qd = dev.ORGQ_TEXT.tolist()
+rel_qd = merge(dev.RELQ_CATEGORY.tolist(),dev.RELQ_text.tolist())
+org_qd = merge(dev.ORGQ_SUBJECT.tolist(), dev.ORGQ_TEXT.tolist())
 
 
 #TEST
 
-rel_qt = test.RELQ_text.tolist()
-org_qt = test.ORGQ_TEXT.tolist()
-
-#EMBEDDINGS AVERAGED
+rel_qt = merge(test.RELQ_CATEGORY.tolist(),test.RELQ_text.tolist())
+org_qt = merge(test.ORGQ_SUBJECT.tolist(), test.ORGQ_TEXT.tolist())
 
 
 #TRAIN
 
-rel_qtoken = ft.tokenized(train.RELQ_text.tolist(), vocab)
-org_qtoken = ft.tokenized(train.ORGQ_TEXT.tolist(), vocab)
+
+#EMBEDDINGS AVERAGED
+rel_qtoken = ft.tokenized(rel_q, vocab)
+org_qtoken = ft.tokenized(org_q, vocab)
 
 
 #dev
 
-rel_qdtoken = ft.tokenized(dev.RELQ_text.tolist(), vocab)
-org_qdtoken = ft.tokenized(dev.ORGQ_TEXT.tolist(), vocab)
+rel_qdtoken = ft.tokenized(rel_qd, vocab)
+org_qdtoken = ft.tokenized(org_qd, vocab)
 
 
 #TEST
 
-rel_qttoken = ft.tokenized(test.RELQ_text.tolist(), vocab)
-org_qttoken = ft.tokenized(test.ORGQ_TEXT.tolist(), vocab)
+rel_qttoken = ft.tokenized(rel_qt, vocab)
+org_qttoken = ft.tokenized(org_qt, vocab)
 
 #LABELS
 
