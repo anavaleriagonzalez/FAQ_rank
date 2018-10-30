@@ -229,16 +229,4 @@ print(preds_list)
 pred_file = open('PREDS/preds-stl-bilstm-16', 'wb')
 pickle.dump(preds_list, pred_file)
 pred_file.close()
-'''
-print('saving predictions to text file....')
-with open('PREDS/bilstm_stl-16.preds', 'w') as f:
-    for i in range(len(probs_list)):
 
-        if probs_list[i] < .52:
-            label = 'false'
-        else:
-            label = 'true'
-        #'\t'+str(entry['probs'].tolist()[0])
-
-        f.write(test.ORGQ_ID.tolist()[i]+ '\t'+test['RELQ_ID'].tolist()[i]+'\t'+ str(i)+ '\t'+str(probs_list[i])+'\t'+  label +'\n')
-'''
